@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.arshuranov.homework28streamapi.service.EmployeeService;
 
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 
 @RequestMapping(path = "/employees")
@@ -55,38 +53,6 @@ public class EmployeeController {
             @RequestParam("lastName") String lastName
     ) {
         return employeeService.findEmployee(firstName, lastName);
-    }
-
-    //тест для вывода листа без ключей
-    @GetMapping("/list")
-    public List<Employee> hashMapToList() {
-        return employeeService.getListOfEmployees();
-    }
-
-
-    @GetMapping("/departments/max-salary")
-    public Optional<Employee> maxSalaryDepartment(
-            @RequestParam("departmentId") int department
-    ) {
-        return employeeService.maxSalaryDepartment(department);
-    }
-
-    @GetMapping("/departments/min-salary")
-    public Optional<Employee> minSalaryDepartment(
-            @RequestParam("departmentId") int department
-    ) {
-        return employeeService.minSalaryDepartment(department);
-    }
-
-    //здесь допер сделать перегрузку, надеюсь, что правильно
-    @GetMapping("/departments/all")
-    public List<Employee> allEmployeesSortedByDepartment(
-            @RequestParam(value = "departmentId", required = false) Integer department
-    ) {
-        if (department == null) {
-            return employeeService.allEmployeesSortedByDepartment();
-        }
-        return employeeService.allEmployeesSortedByDepartment(department);
     }
 
 

@@ -13,15 +13,7 @@ public interface EmployeeService {
 
     Employee findEmployee(String firstName, String lastName);
 
-    List<Employee> getListOfEmployees();
-
     Map<String, Employee> getAllEmployees();
 
-    Optional<Employee> maxSalaryDepartment(int numberOfDepartment);
 
-    Optional<Employee> minSalaryDepartment(int numberOfDepartment);
-
-    List<Employee> allEmployeesSortedByDepartment();
-
-    List<Employee> allEmployeesSortedByDepartment(int department);
 }

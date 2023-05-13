@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import ru.arshuranov.homework28streamapi.service.EmployeeService;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -18,12 +17,6 @@ public class EmployeeServiceImpl implements EmployeeService {
                     "Ivan3Ivanov3", new Employee("Ivan3", "Ivanov3", 400000, 3)
 
             ));
-
-    @Override
-    public List<Employee> getListOfEmployees() {
-        List<Employee> listOfEmployees = new ArrayList<>(employees.values());
-        return listOfEmployees;
-    }
 
     @Override
     public Map<String, Employee> getAllEmployees() {
@@ -65,38 +58,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         } else {
             return employees.get(key);
         }
-    }
-
-    @Override
-    public Optional<Employee> maxSalaryDepartment(int numberOfDepartment) {
-        Optional<Employee> employee = getListOfEmployees().stream()
-                .filter(e -> e.getDepartment() == numberOfDepartment)
-                .max(Comparator.comparingInt(Employee::getSalary));
-
-        return employee;
-    }
-
-    @Override
-    public Optional<Employee> minSalaryDepartment(int numberOfDepartment) {
-        Optional<Employee> employee = getListOfEmployees().stream()
-                .filter(e -> e.getDepartment() == numberOfDepartment)
-                .min(Comparator.comparingInt(Employee::getSalary));
-
-        return employee;
-    }
-
-    @Override
-    public List<Employee> allEmployeesSortedByDepartment() {
-        return getListOfEmployees().stream()
-                .sorted(Comparator.comparing(Employee::getDepartment))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Employee> allEmployeesSortedByDepartment(int department) {
-        return getListOfEmployees().stream()
-                .filter(employee -> employee.getDepartment()==department)
-                .collect(Collectors.toList());
     }
 
 
