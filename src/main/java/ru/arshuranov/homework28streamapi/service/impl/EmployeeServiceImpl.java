@@ -1,5 +1,6 @@
 package ru.arshuranov.homework28streamapi.service.impl;
 
+import org.apache.commons.lang3.StringUtils;
 import ru.arshuranov.homework28streamapi.model.Employee;
 import org.springframework.stereotype.Service;
 import ru.arshuranov.homework28streamapi.service.EmployeeService;
@@ -27,9 +28,22 @@ public class EmployeeServiceImpl implements EmployeeService {
         return firstName + lastName;
     }
 
+    private void StringUtilsCheck(String firstName, String lastName) {
+        if ((StringUtils.isEmpty(firstName) || StringUtils.isEmpty(lastName))
+                || !StringUtils.contains("[a-zA-Z]", firstName + lastName)) {
+            throw new RuntimeException("Некорректное имя или фамилия");
+        } else {
+            StringUtils.lowerCase(firstName);
+            StringUtils.lowerCase(lastName);
+            StringUtils.capitalize(firstName);
+            StringUtils.capitalize(lastName);
+        }
+    }
+
     @Override
     public Employee addEmployee(String firstName, String lastName, int salary, int department) {
         String key = getEmployeeKey(firstName, lastName);
+        StringUtilsCheck(firstName, lastName);
 
         if (employees.containsKey(key)) {
             throw new RuntimeException("Такой сотрудник уже есть в базе");
