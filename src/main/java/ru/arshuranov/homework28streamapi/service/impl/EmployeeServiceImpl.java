@@ -1,6 +1,7 @@
 package ru.arshuranov.homework28streamapi.service.impl;
 
 import org.apache.commons.lang3.StringUtils;
+import ru.arshuranov.homework28streamapi.exception.InvalidInputException;
 import ru.arshuranov.homework28streamapi.model.Employee;
 import org.springframework.stereotype.Service;
 import ru.arshuranov.homework28streamapi.service.EmployeeService;
@@ -32,7 +33,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private void StringUtilsCheck(String firstName, String lastName) {
         if ((StringUtils.isEmpty(firstName) || StringUtils.isEmpty(lastName))
                 || !StringUtils.containsOnly(firstName + lastName, "[a-zA-Z]")) {
-            throw new RuntimeException("Некорректное имя или фамилия");
+            throw new InvalidInputException("Некорректное имя или фамилия");
         }
     }
 
