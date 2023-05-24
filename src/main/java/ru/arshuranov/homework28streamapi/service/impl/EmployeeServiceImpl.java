@@ -28,15 +28,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         return firstName + lastName;
     }
 
+    //"[a-zA-Z]"
     private void StringUtilsCheck(String firstName, String lastName) {
         if ((StringUtils.isEmpty(firstName) || StringUtils.isEmpty(lastName))
-                || !StringUtils.contains("[a-zA-Z]", firstName + lastName)) {
+                || !StringUtils.containsOnly(firstName + lastName, "[a-zA-Z]")) {
             throw new RuntimeException("Некорректное имя или фамилия");
-        } else {
-            StringUtils.lowerCase(firstName);
-            StringUtils.lowerCase(lastName);
-            StringUtils.capitalize(firstName);
-            StringUtils.capitalize(lastName);
         }
     }
 
@@ -48,7 +44,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (employees.containsKey(key)) {
             throw new RuntimeException("Такой сотрудник уже есть в базе");
         } else {
-            employees.put(key, new Employee(firstName, lastName, salary, department));
+            employees.put(key, new Employee(StringUtils.capitalize(firstName), StringUtils.capitalize(lastName), salary, department));
         }
         return employees.get(key);
     }
